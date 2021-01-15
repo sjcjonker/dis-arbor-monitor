@@ -34,7 +34,6 @@ class DisClient(object):
         self._base_url = base_url
         self._dest_url = f"{self._base_url}/data?api_key={self._key}"
         self._events = {}
-        self._sent_events = []
 
         res = requests.get(f"{base_url}/client/me?api_key={api_key}")
 
@@ -113,6 +112,7 @@ class DisClient(object):
         events = []
         for k, v in self._events.items():
             events.append(v)
+        self._events = {}
 
         res = requests.post(self._dest_url, json={"events": events})
 
@@ -123,5 +123,3 @@ class DisClient(object):
         if res.status_code >= 400:
             raise Exception(res.json())
 
-        self._sent_events.append(self._events)
-        self._events = {}
