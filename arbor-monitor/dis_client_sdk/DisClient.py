@@ -121,5 +121,5 @@ class DisClient(object):
                 "Not authorized.  Check that your API Key is correct.")
 
         if res.status_code >= 400:
-            raise Exception(res.json())
+            raise Exception(f"server returned status code {res.status_code} ({res.reason})")
 
